@@ -5,7 +5,7 @@ const express = require('express');
 const path = require('path');
 
 const mongoose = require('mongoose');
-const mongoUri = process.env.MONGO_URI;
+const mongoUri = process.env.MONGO_URI || 'mongodb://localhost:27017/socialfeedwebapp';
 
 const cors = require('cors');
 
@@ -16,13 +16,18 @@ const postRoutes = require('./Routes/postRoutes');
 const app = express();
 
 // Middleware
-app.use(cors());
-app.use(cors({ origin: 'http://localhost:3000', credentials: true }));
+app.use(cors({
+  origin: [
+    'http://localhost:3000',
+    'http://localhost'
+  ],
+  credentials: true
+}));
 app.use(express.json());
 app.use('/uploads', express.static(path.join(__dirname, '../uploads')));
 // MongoDB connection
 
-mongoose.connect('mongodb://localhost:27017/socialfeedwebapp', {
+mongoose.connect(mongoUri, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 })
