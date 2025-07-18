@@ -117,3 +117,33 @@
   background-color: #0056b3;
 }
 
+/* NEW: container for like and follow buttons */
+.buttons-container {
+  display: flex;
+  gap: 10px; /* space between buttons */
+  margin-top: 15px;
+  margin-bottom: 15px;
+  flex-wrap: wrap; /* wrap on small screens */
+}
+
+/* NEW: style for like and follow buttons */
+.buttons-container button {
+  padding: 8px 16px;
+  font-size: 14px;
+  cursor: pointer;
+  border-radius: 5px;
+  border: 1px solid #007bff;
+  background-color: #007bff;
+  color: white;
+  transition: background-color 0.3s ease;
+}
+
+.buttons-container button:hover {
+  background-color: #0056b3;
+}
+
+/* NEW: ensure comment section doesn’t overlap buttons */
+.comment-section {
+  margin-top: 20px;
+  clear: both;
+}

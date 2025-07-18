@@ -81,7 +81,7 @@ exports.getPaginatedPosts = async (req, res) => {
 exports.getPostById = async (req, res) => {
   try {
     const { id } = req.params;
-
+    console.log(id);
     if (!mongoose.Types.ObjectId.isValid(id)) {
       return res.status(400).json({ error: 'Invalid Post ID format' });
     }
@@ -95,7 +95,7 @@ exports.getPostById = async (req, res) => {
     }
 
        post.likeCount = post.likes ? post.likes.length : 0;
-    post.username = post.createdBy.username;
+       post.username = post.createdBy.username;
     delete post.createdBy;
 
     if (!post.comments) {

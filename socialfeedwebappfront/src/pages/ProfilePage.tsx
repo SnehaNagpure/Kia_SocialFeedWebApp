@@ -215,6 +215,7 @@ const ProfilePage = () => {
                     className="media"
                   />
                 )}
+                <p> {`http://localhost:5000${post.media[0]}`}</p>
                 <div className="text">
                   <h3>{post.title}</h3>
                   <p>{post.subtitle}</p>
@@ -294,6 +295,23 @@ const ProfilePage = () => {
               </button>
             </div>
 
+            <div  className="buttons-container">
+              <button
+                className="like-button"
+                onClick={() => handleLike(selectedPost._id)}
+              >
+                {isLiked ? '💔 Unlike' : '❤️ Like'} ({selectedPost.likeCount})
+              </button>
+
+              {selectedPost.username !== username && (
+                <FollowButton
+                  profileUsername={selectedPost.username}
+                  currentUsername={username}
+                />
+                
+              )}
+              </div>
+
             {/* Comments Section with collapsible */}
             <div className="comments-popup">
               <h4>Comments</h4>
@@ -336,8 +354,7 @@ const ProfilePage = () => {
                   <p style={{ color: '#777' }}>No comments yet</p>
                 )}
               </div>
-
-              <div className="comment-input">
+                            <div className="comment-section">
                 <input
                   type="text"
                   placeholder="Add a comment..."
@@ -346,8 +363,8 @@ const ProfilePage = () => {
                 />
                 <button onClick={() => handleComment(selectedPost._id)}>Post</button>
               </div>
+            
             </div>
-
             {/* Bottom buttons container: Like and Follow */}
             <div
               style={{
@@ -360,19 +377,7 @@ const ProfilePage = () => {
                 width: 'calc(100% - 20px)',
               }}
             >
-              <button
-                className="like-button"
-                onClick={() => handleLike(selectedPost._id)}
-              >
-                {isLiked ? '💔 Unlike' : '❤️ Like'} ({selectedPost.likeCount})
-              </button>
-
-              {selectedPost.username !== username && (
-                <FollowButton
-                  profileUsername={selectedPost.username}
-                  currentUsername={username}
-                />
-              )}
+              
             </div>
           </div>
         </div>

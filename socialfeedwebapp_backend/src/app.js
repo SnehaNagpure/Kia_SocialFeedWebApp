@@ -2,14 +2,11 @@
 require('dotenv').config();
 console.log('All env vars:', process.env);
 const express = require('express');
+const path = require('path');
 
 const mongoose = require('mongoose');
 const mongoUri = process.env.MONGO_URI;
-//console.log('Mongo URI:', mongoUri);  
-// if (!mongoUri) {
-//   console.error('MongoDB connection string is missing! Check your .env file');
-//   process.exit(1);
-// }
+
 const cors = require('cors');
 
 
@@ -22,9 +19,7 @@ const app = express();
 app.use(cors());
 app.use(cors({ origin: 'http://localhost:3000', credentials: true }));
 app.use(express.json());
-app.use('/uploads', express.static('uploads')); // Serve media files statically
-//app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
-
+app.use('/uploads', express.static(path.join(__dirname, '../uploads')));
 // MongoDB connection
 
 mongoose.connect('mongodb://localhost:27017/socialfeedwebapp', {
