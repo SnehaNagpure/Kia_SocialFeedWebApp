@@ -48,8 +48,11 @@ export const loginUser = createAsyncThunk<
       if (!response.ok) {
         // Try to parse error message from response
         const errorData = await response.json().catch(() => null);
-        const message = errorData?.message || 'Login failed';
-        return thunkAPI.rejectWithValue(message);
+       // const message = errorData?.message || 'Login failed';
+        if (response.status === 401 && errorData?.error === 'Invalid email or password.') {
+          return thunkAPI.rejectWithValue('Invalid credentials');
+        }
+        return thunkAPI.rejectWithValue('An unexpected error occurred. Please try again later.');
       }
 
       const data: LoginResponse = await response.json();
@@ -88,7 +91,10 @@ const authSlice = createSlice({
          const user = {
           _id: action.payload.user._id,
           username: action.payload.user.username,
-          email: action.payload.user.email
+          email: action.payload.user.email,
+          firstName: action.payload.user.firstName,
+          lastName: action.payload.user.lastName,
+          profilePicture: action.payload.user.profilePicture,
         };
 
           localStorage.setItem('token', action.payload.token);

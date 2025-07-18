@@ -81,7 +81,7 @@ exports.getPaginatedPosts = async (req, res) => {
 exports.getPostById = async (req, res) => {
   try {
     const { id } = req.params;
-
+    console.log(id);
     if (!mongoose.Types.ObjectId.isValid(id)) {
       return res.status(400).json({ error: 'Invalid Post ID format' });
     }
@@ -95,7 +95,7 @@ exports.getPostById = async (req, res) => {
     }
 
        post.likeCount = post.likes ? post.likes.length : 0;
-    post.username = post.createdBy.username;
+       post.username = post.createdBy.username;
     delete post.createdBy;
 
     if (!post.comments) {
@@ -112,30 +112,7 @@ exports.getPostById = async (req, res) => {
 // New: Like a post
 // PUT /api/posts/:id/like
 exports.likePost = async (req, res) => {
-  // const { id } = req.params;
-  // const { userId } = req.body;
-
-  // try {
-  //   const post = await Post.findById(id);
-  //   if (!post) return res.status(404).json({ error: 'Post not found' });
-
-  //   const alreadyLiked = post.likes.includes(userId);
-  //   if (alreadyLiked) {
-  //     post.likes.pull(userId); // Unlike
-  //   } else {
-  //     post.likes.push(userId); // Like
-  //   }
-
-  //   await post.save();
-
-  //   res.json({
-  //     liked: !alreadyLiked,
-  //     likeCount: post.likes.length,
-  //   });
-  // } catch (err) {
-  //   console.error('Like error:', err);
-  //   res.status(500).json({ error: 'Server error' });
-  // }
+  
   const { id } = req.params;
   const { userId } = req.body;
 
@@ -168,10 +145,12 @@ exports.likePost = async (req, res) => {
 
 // New: Add a comment
 // PUT /api/posts/:id/comment
+
+
 exports.addComment = async (req, res) => {
   try {
     const postId = req.params.id;
-    const { userId, text } = req.body; // userId: who comments, text: comment content
+    const { userId, username, text } = req.body;
 
     if (!text || text.trim() === '') {
       return res.status(400).json({ error: 'Comment text is required' });
@@ -180,14 +159,25 @@ exports.addComment = async (req, res) => {
     const post = await Post.findById(postId);
     if (!post) return res.status(404).json({ error: 'Post not found' });
 
-    // Add new comment object
-    post.comments.push({ user: userId, text });
+    const newComment = {
+      _id: new mongoose.Types.ObjectId(), // manually assign _id
+      user: userId,
+      username,
+      text,
+      createdAt: new Date()
+    };
 
-    await post.save();  // Save the updated post
+    post.comments.push(newComment);
+    await post.save();
 
-    res.json({ comments: post.comments });
+    res.status(201).json({
+      _id: newComment._id,
+      text: newComment.text,
+      createdAt: newComment.createdAt,
+      username: newComment.username
+    });
   } catch (err) {
-    console.error('Comment update error:', err);
+    console.error('Comment update error:', err); // check your server logs here
     res.status(500).json({ error: 'Server error' });
   }
 };

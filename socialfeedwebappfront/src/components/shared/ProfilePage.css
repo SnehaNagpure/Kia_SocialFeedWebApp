@@ -5,8 +5,26 @@
 }
 
 .header {
-  text-align: center;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   margin-bottom: 1rem;
+  padding: 0 0.5rem;
+}
+
+.create-button {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  padding: 0.5rem 1rem;
+  font-size: 0.9rem;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.create-button:hover {
+  background-color: #0056b3;
 }
 
 .post-list {
@@ -54,6 +72,7 @@
 }
 
 .modal-content {
+  position: relative;
   background: #fff;
   padding: 1rem;
   border-radius: 12px;
@@ -63,7 +82,7 @@
   overflow-y: auto;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: stretch;
 }
 
 .carousel {
@@ -109,20 +128,127 @@
   background-color: #ddd;
 }
 
-
-
+/* Comments Section */
 .comments {
   margin-top: 1rem;
   width: 100%;
-  max-width: 600px;
+  padding: 1rem;
+  background-color: #f9f9f9;
+  border-top: 1px solid #ccc;
+  border-radius: 8px;
+  box-sizing: border-box;
 }
 
+.comment-list {
+  max-height: 200px;
+  overflow-y: auto;
+  margin-bottom: 0.75rem;
+}
+
+.comment-item {
+  border-bottom: 1px solid #eee;
+  padding: 6px 0;
+}
+
+.comment-input {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 0.75rem;
+}
+
+.comment-input input {
+  flex: 1;
+  padding: 0.5rem;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+}
+
+.comment-input button {
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  background: #007bff;
+  color: white;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.comment-input button:hover {
+  background: #0056b3;
+}
+
+/* Like, Follow, Close Section */
 .like-toggle {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 12px;
   margin-top: 1rem;
   width: 100%;
-  max-width: 600px;
+  position: relative;
+}
+
+/* Common styles for Like and Follow buttons */
+.like-button,
+.follow-button {
+  width: 120px;
+  height: 40px;
+  padding: 0 16px;
+  font-size: 1rem;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  user-select: none;
+  transition: background-color 0.3s ease;
+  color: white;
+}
+
+/* Like button colors */
+.like-button {
+  background-color: #e91e63;
+}
+
+.like-button:hover {
+  background-color: #c2185b;
+}
+
+/* Follow button colors */
+.follow-button {
+  background-color: #f44336;
+}
+
+.follow-button:hover {
+  background-color: #d32f2f;
+}
+
+/* Follow container styling (optional) */
+.follow-container {
+  border: 1px solid red;
+  padding: 10px;
+  border-radius: 8px;
+  background-color: #fff7f7;
+  display: inline-block;
+}
+
+/* Close button */
+.close-button {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  font-size: 1.4rem;
+  font-weight: bold;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #333;
+  transition: color 0.3s ease;
+}
+
+.close-button:hover {
+  color: #000;
 }
 
 .loader {
@@ -142,7 +268,7 @@
 }
 
 .media-carousel::-webkit-scrollbar {
-  display: none; /* Hide scrollbar on Chrome/Safari */
+  display: none;
 }
 
 .carousel-item {
@@ -160,26 +286,38 @@
 .carousel-item:hover {
   transform: scale(1.03);
 }
+.profile-container {
+  padding: 1rem;
+  max-width: 1200px;
+  margin: auto;
+  box-sizing: border-box;
+}
 
-.header {
+.profile-layout {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+}
+
+.profile-details {
+  width: 280px;  /* fixed sidebar width */
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  padding: 0.5rem;
+  background: #fff;
+  text-align: left; /* left align text */
+  /* no margin-right */
+}
+
+.profile-picture {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  object-fit: cover;
   margin-bottom: 1rem;
-  padding: 0 0.5rem;
+  display: block;
+  margin-left: 0; /* flush left */
 }
 
-.create-button {
-  background-color: #007bff;
-  color: #fff;
-  border: none;
-  padding: 0.5rem 1rem;
-  font-size: 0.9rem;
-  border-radius: 6px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-.create-button:hover {
-  background-color: #0056b3;
+.posts-section {
+  flex-grow: 1; /* fill remaining space */
+  /* no margin or padding on left or right */
 }
