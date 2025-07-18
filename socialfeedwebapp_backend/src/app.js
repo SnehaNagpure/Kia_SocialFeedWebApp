@@ -19,15 +19,18 @@ const postRoutes = require('./Routes/postRoutes');
 const app = express();
 
 // Middleware
-app.use(cors());
-app.use(cors({ origin: 'http://localhost:3000', credentials: true }));
+app.use(cors({
+  origin: true,
+  credentials: true
+}));
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 app.use('/uploads', express.static('uploads')); // Serve media files statically
 //app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 // MongoDB connection
 
-mongoose.connect('mongodb://localhost:27017/socialfeedwebapp', {
+mongoose.connect(process.env.MONGO_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 })
