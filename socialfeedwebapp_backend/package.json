@@ -12,7 +12,7 @@
     "dotenv": "^17.2.0",
     "express": "^5.1.0",
     "jsonwebtoken": "^9.0.2",
-    "mongoose": "^8.16.3",
+    "mongoose": "^8.16.4",
     "multer": "^2.0.1",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
@@ -22,7 +22,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
+    "test": "jest tests/",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
@@ -47,5 +47,10 @@
   "main": "index.js",
   "keywords": [],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "jest": "^30.0.4",
+    "mongodb-memory-server": "^10.1.4",
+    "supertest": "^7.1.3"
+  }
 }
