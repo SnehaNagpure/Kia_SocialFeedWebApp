@@ -215,7 +215,7 @@ const ProfilePage = () => {
                     className="media"
                   />
                 )}
-                <p> {`http://localhost:5000${post.media[0]}`}</p>
+                
                 <div className="text">
                   <h3>{post.title}</h3>
                   <p>{post.subtitle}</p>
