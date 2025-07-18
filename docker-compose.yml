@@ -8,7 +8,7 @@ services:
     volumes:
       - mongo-data:/data/db
   backend:
-    build: ./socialfeedwebapp_backend
+    image: snehanagpure/kia_socialfeedwebapp-backend:latest
     restart: always
     environment:
       - MONGO_URI=mongodb://mongo:27017/socialfeedwebapp
@@ -20,7 +20,7 @@ services:
     volumes:
       - ./socialfeedwebapp_backend/uploads:/app/uploads
   frontend:
-    build: ./socialfeedwebappfront
+    image: snehanagpure/kia_socialfeedwebapp-frontend:latest
     restart: always
     ports:
       - "80:80"
